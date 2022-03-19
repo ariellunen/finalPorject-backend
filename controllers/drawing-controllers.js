@@ -5,6 +5,20 @@ const HttpError = require('../models/http-error');
 const Draw = require('../models/draw');
 const User = require('../models/user');
 
+const getAllDraw = async(req, res, next) => {
+  let drawing;
+  try {
+    drawing = await Draw.find({});
+  } catch (err) {
+    const error = new HttpError(
+      'Fetching drawing failed, please try again later.',
+      500
+    );
+    return next(error);
+  }
+  res.json({drawing: drawing.map(draw => draw.toObject({ getters: true }))});
+}
+
 const getDrawById = async (req, res, next) => {
   const draweId = req.params.did;
 
@@ -65,20 +79,23 @@ const createDraw = async (req, res, next) => {
     );
   }
 
-  const { firstKide, secondKide } = req.body;
+  const { firstKide, secondKide, timeStarted, timeDone, firstCoordinate, secondCoordinate, sync} = req.body;
   const createdDraw = new Draw({
-    coordinate: [],
-    timeStarted: '14:00',
-    timeDone: '14:20',
+    firstCoordinate,
+    secondCoordinate,
+    timeStarted,
+    timeDone,
     firstKide,
     secondKide,
-    sync:'',
+    sync,
   });
 
   let first;
   let second;
+
   try {
     first = await User.findById(firstKide);
+    console.log(first)
     second = await User.findById(secondKide);
   } catch (err) {
     const error = new HttpError('Creating place failed, please try again', 500);
@@ -219,3 +236,4 @@ exports.getDrawingByUserId = getDrawingByUserId;
 exports.createDraw = createDraw;
 // exports.updatePlace = updatePlace;
 exports.deleteDraw = deleteDraw;
+exports.getAllDraw = getAllDraw;

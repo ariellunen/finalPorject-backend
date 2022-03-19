@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 
 const drawSchema = new Schema({
-    coordinate : { type: Array },
+    firstCoordinate : { type: Array },
+    secondCoordinate : { type: Array },
     timeStarted: { type: String, required: true },
     timeDone: { type: String, required: true },
     firstKide: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },

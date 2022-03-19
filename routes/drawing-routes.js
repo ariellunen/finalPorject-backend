@@ -6,6 +6,7 @@ const drawingControllers = require('../controllers/drawing-controllers');
 const router = express.Router();
 
 router.get('/:did', drawingControllers.getDrawById);
+router.get('/', drawingControllers.getAllDraw);
 
 router.get('/user/:uid', drawingControllers.getDrawingByUserId);
 
