@@ -13,14 +13,14 @@ router.post(
     check('name')
       .not()
       .isEmpty(),
-    check('email')
-      .normalizeEmail() // Test@test.com => test@test.com
-      .isEmail(),
-    check('password').isLength({ min: 6 })
+    // check('email')
+    //   .normalizeEmail() 
+    //   .isEmail(),
+    // check('password').isLength({ min: 6 })
   ],
   usersController.signup
 );
 
-router.post('/login', usersController.login);
+// router.post('/login', usersController.login);
 
 module.exports = router;
