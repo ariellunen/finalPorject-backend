@@ -10,7 +10,14 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.use('/api/drawing', drawingRoutes); // => /api/places...
+app.use((req, res,next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Access, Authorization');
+  res.setHeader('Access-Control-Allow-Methods','GET, POST, PATCH, DELETE')
+  next();
+});
+
+app.use('/api/drawing', drawingRoutes);
 app.use('/api/users', usersRoutes);
 
 app.use((req, res, next) => {
@@ -27,7 +34,7 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect('mongodb+srv://Ariel:ari123456@cluster0.jagbi.mongodb.net/draw?retryWrites=true&w=majority')
+  .connect('mongodb+srv://Ariel:ari123456@cluster0.jagbi.mongodb.net/mern?retryWrites=true&w=majority')
   .then(() => {
     app.listen(5000);
   })
