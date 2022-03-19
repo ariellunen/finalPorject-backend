@@ -36,7 +36,7 @@ app.use((error, req, res, next) => {
 mongoose
   .connect('mongodb+srv://Ariel:ari123456@cluster0.jagbi.mongodb.net/mern?retryWrites=true&w=majority')
   .then(() => {
-    app.listen(5000);
+    app.listen(3000);
   })
   
   .catch(err => {
