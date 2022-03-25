@@ -79,16 +79,14 @@ const createDraw = async (req, res, next) => {
     );
   }
 
-  const { firstKide, secondKide, timeStarted, timeDone, firstCoordinate, secondCoordinate, sync, video} = req.body;
+  const { firstKide, secondKide, timeStarted, timeDone, coordinate, sync } = req.body;
   const createdDraw = new Draw({
-    firstCoordinate,
-    secondCoordinate,
+    coordinate,
     timeStarted,
     timeDone,
     firstKide,
     secondKide,
     sync,
-    video,
   });
 
   let first;
