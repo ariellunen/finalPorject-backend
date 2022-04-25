@@ -1,6 +1,6 @@
 const express = require('express');
 const { check } = require('express-validator');
-
+const checkAuth = require('../middleware/check-auth');
 const drawingControllers = require('../controllers/drawing-controllers');
 
 const router = express.Router();
@@ -13,10 +13,6 @@ router.get('/user/:uid', drawingControllers.getDrawingByUserId);
 router.post(
   '/',
   [
-    // check('coordinate')
-    //   .not()
-    //   .isEmpty(),
-    // check('description').isLength({ min: 5 }),
     check('firstKide')
       .not()
       .isEmpty(),
@@ -26,6 +22,8 @@ router.post(
   ],
   drawingControllers.createDraw
 );
+
+router.use(checkAuth);
 
 // router.patch(
 //   '/:pid',

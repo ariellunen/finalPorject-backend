@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const HttpError = require('../models/http-error');
 const Draw = require('../models/draw');
 const User = require('../models/user');
+var moment = require('moment-timezone');
+const Child = require('../models/child');
 
 const getAllDraw = async(req, res, next) => {
   let drawing;
@@ -79,23 +81,25 @@ const createDraw = async (req, res, next) => {
     );
   }
 
-  const { firstKide, secondKide, timeStarted, timeDone, coordinate, sync } = req.body;
+  const { firstKide, secondKide, timeStarted, timeDone, coordinate, sync, colorFirst, colorSecond } = req.body;
   const createdDraw = new Draw({
     coordinate,
     timeStarted,
-    timeDone,
+    timeDone: moment().tz("Asia/Jerusalem").format(),
     firstKide,
     secondKide,
     sync,
+    colorFirst,
+    colorSecond
   });
 
   let first;
   let second;
 
   try {
-    first = await User.findById(firstKide);
+    first = await Child.findById(firstKide);
     console.log(first)
-    second = await User.findById(secondKide);
+    second = await Child.findById(secondKide);
   } catch (err) {
     const error = new HttpError('Creating place failed, please try again', 500);
     return next(error);
