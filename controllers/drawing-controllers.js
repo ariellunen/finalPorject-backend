@@ -81,7 +81,7 @@ const createDraw = async (req, res, next) => {
     );
   }
 
-  const { firstKide, secondKide, timeStarted, timeDone, coordinate, sync, colorFirst, colorSecond } = req.body;
+  const { firstKide, secondKide, timeStarted, timeDone, coordinate, sync, colorFirst, colorSecond, changesL, changesR, secondsL, secondsR } = req.body;
   const createdDraw = new Draw({
     coordinate,
     timeStarted,
@@ -90,7 +90,11 @@ const createDraw = async (req, res, next) => {
     secondKide,
     sync,
     colorFirst,
-    colorSecond
+    colorSecond,
+    changesL,
+    changesR,
+    secondsL,
+    secondsR
   });
 
   let first;
