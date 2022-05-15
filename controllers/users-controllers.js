@@ -117,7 +117,7 @@ const signup = async (req, res, next) => {
       new HttpError('Invalid inputs passed, please check your data.', 422)
     );
   }
-  const { name, email, password } = req.body;
+  const { name, email, password, userType } = req.body;
 
   let existingUser
   try {
@@ -153,6 +153,7 @@ const signup = async (req, res, next) => {
     name,
     email,
     password: hashPassword,
+    userType
   });
 
   try {
@@ -180,7 +181,7 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({ userId: createdUser.id, email: createdUser.email, token: token });
+  res.json({ userId: createdUser.id, email: createdUser.email, token: token, userType: createdUser.userType });
 };
 
 const getUserById = async (req, res, next) => {

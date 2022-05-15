@@ -6,7 +6,7 @@ const usersController = require('../controllers/users-controllers');
 const router = express.Router();
 
 router.get('/children', usersController.getChildren);
-router.get('/:cid', usersController.getChildById);
+router.get('/children/:uid', usersController.getChildById);
 
 router.post(
   '/signupChild',
