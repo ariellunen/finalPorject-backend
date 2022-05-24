@@ -51,9 +51,8 @@ const signupChild = async (req, res, next) => {
 
   const createdUser = new Child({
     name,
-    // email,
-    // password,
-    drawing: []
+    drawing: [],
+    image: req.file.path,
   });
 
   try {
@@ -214,9 +213,10 @@ const login = async (req, res, next) => {
   const { email, password } = req.body;
 
   let existingUser;
-
   try {
     existingUser = await User.findOne({ email: email })
+  console.log(existingUser)
+
   } catch (err) {
     const error = new HttpError(
       'Logging in failed, please try again later.',
@@ -252,7 +252,7 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
-  
+
   let token;
   try {
     token = jwt.sign(
@@ -268,7 +268,7 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({ userId: existingUser.id, email: existingUser.email, token: token });
+  res.json({ userId: existingUser.id, email: existingUser.email, userType: existingUser.userType, token: token });
 };
 
 exports.getChildren = getChildren;
