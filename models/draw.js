@@ -10,7 +10,7 @@ const drawSchema = new Schema({
     timeDone: { type: Object, required: true },
     firstKide: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },
     secondKide: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },
-    sync: { type: String, default: 0 },
+    secondTotal: { type: Number, default: 0 },
     colorFirst: { type: String, required: true },
     colorSecond: { type: String, required: true },
     changesL: { type: Array },

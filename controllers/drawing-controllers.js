@@ -81,14 +81,14 @@ const createDraw = async (req, res, next) => {
     );
   }
 
-  const { firstKide, secondKide, timeStarted, timeDone, coordinate, sync, colorFirst, colorSecond, changesL, changesR, secondsL, secondsR } = req.body;
+  const { firstKide, secondKide, timeStarted, timeDone, coordinate, secondTotal, colorFirst, colorSecond, changesL, changesR, secondsL, secondsR } = req.body;
   const createdDraw = new Draw({
     coordinate,
     timeStarted,
     timeDone: moment().tz("Asia/Jerusalem").format(),
     firstKide,
     secondKide,
-    sync,
+    secondTotal,
     colorFirst,
     colorSecond,
     changesL,
