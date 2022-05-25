@@ -17,6 +17,7 @@ const drawSchema = new Schema({
     changesR: { type: Array },
     secondsL: { type: Array },
     secondsR: { type: Array },
+    shape: {type: String, required: true}
 });
 
 module.exports = mongoose.model('Draw', drawSchema);
