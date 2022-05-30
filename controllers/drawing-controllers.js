@@ -81,14 +81,14 @@ const createDraw = async (req, res, next) => {
     );
   }
 
-  const { firstKide, secondKide, timeStarted, timeDone,shape, coordinate, sync, colorFirst, colorSecond, changesL, changesR, secondsL, secondsR } = req.body;
+  const { firstKide, secondKide, timeStarted, shape, coordinate, secondTotal, colorFirst, colorSecond, changesL, changesR, secondsL, secondsR } = req.body;
   const createdDraw = new Draw({
     coordinate,
     timeStarted,
     timeDone: moment().tz("Asia/Jerusalem").format(),
     firstKide,
     secondKide,
-    sync,
+    secondTotal,
     colorFirst,
     colorSecond,
     changesL,
@@ -103,7 +103,6 @@ const createDraw = async (req, res, next) => {
 
   try {
     first = await Child.findById(firstKide);
-    console.log(first)
     second = await Child.findById(secondKide);
   } catch (err) {
     const error = new HttpError('Creating place failed, please try again', 500);
@@ -218,10 +217,7 @@ const deleteDraw = async (req, res, next) => {
     sess.startTransaction();
     await drawFirst.remove({ session: sess });
     drawFirst.firstKide.drawing.pull(drawFirst);
-    console.log('drawFirst');
-
     await drawFirst.firstKide.drawing.save({ session: sess });
-    console.log('2');
     await drawSecond.remove({ session: sess });
     drawSecond.firstKide.drawing.pull(drawSecond);
     await drawSecond.firstKide.save({ session: sess });
