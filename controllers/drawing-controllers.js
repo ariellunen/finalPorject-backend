@@ -74,7 +74,10 @@ const getDrawingByUserId = async (req, res, next) => {
 };
 
 const createDraw = async (req, res, next) => {
+  console.log('hiii')
   const errors = validationResult(req);
+  console.log('biiii')
+
   if (!errors.isEmpty()) {
     return next(
       new HttpError('Invalid inputs passed, please check your data.', 422)
@@ -103,7 +106,10 @@ const createDraw = async (req, res, next) => {
 
   try {
     first = await Child.findById(firstKide);
+    console.log(first);
     second = await Child.findById(secondKide);
+    console.log(second);
+  
   } catch (err) {
     const error = new HttpError('Creating place failed, please try again', 500);
     return next(error);

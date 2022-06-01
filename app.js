@@ -5,12 +5,14 @@ const mongoose = require('mongoose');
 const drawingRoutes = require('./routes/drawing-routes');
 const usersRoutes = require('./routes/users-routes');
 const HttpError = require('./models/http-error');
+const logger = require('morgan');
 
 const fs = require('fs');
 const path = require('path')
 const app = express();
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '5MB',extended: true, parameterLimit:50000}));
+
 app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 
 app.use((req, res,next) => {
