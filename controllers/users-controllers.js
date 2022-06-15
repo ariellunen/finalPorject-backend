@@ -29,7 +29,6 @@ const signupChild = async (req, res, next) => {
   }
   // const { name, email, password } = req.body;
   const { name } = req.body;
-
   let existingUser
   try {
     existingUser = await Child.findOne({ name: name })
@@ -219,7 +218,7 @@ const login = async (req, res, next) => {
 
   } catch (err) {
     const error = new HttpError(
-      'Logging in failed, please try again later.',
+      ' ההתחברות נכשלה, אנא נסה שנית',
       500
     );
     return next(error);
@@ -227,7 +226,7 @@ const login = async (req, res, next) => {
 
   if (!existingUser) {
     const error = new HttpError(
-      'Invalid credentials, could not log you in.',
+      'אימייל או סיסמה שגויים. אנא נסה שנית',
       401
     );
     return next(error);
@@ -238,7 +237,7 @@ const login = async (req, res, next) => {
     isValidPassword = await bcrypt.compare(password, existingUser.password);
   } catch (err) {
     const error = new HttpError(
-      'Logging in failed, please check your credentials and try again',
+      'אימייל או סיסמה שגויים. אנא נסה שנית',
       500
     );
     return next(error);
@@ -246,7 +245,7 @@ const login = async (req, res, next) => {
 
   if (!isValidPassword) {
     const error = new HttpError(
-      'Invalid credentials, could not log you in.',
+      'אימייל או סיסמה שגויים. אנא נסה שנית',
       401
     );
     return next(error);
@@ -262,7 +261,7 @@ const login = async (req, res, next) => {
     );
   } catch (err) {
     const error = new HttpError(
-      'Logging in failed, please try again.',
+      'ההתחברות נכשלה, אנא נסה שנית',
       500
     );
     return next(error);
