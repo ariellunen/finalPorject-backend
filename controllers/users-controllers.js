@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+require('dotenv').config();
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
 const Child = require('../models/child');
@@ -30,23 +30,23 @@ const signupChild = async (req, res, next) => {
   // const { name, email, password } = req.body;
   const { name } = req.body;
   let existingUser
-  try {
-    existingUser = await Child.findOne({ name: name })
-  } catch (err) {
-    const error = new HttpError(
-      'Signing up failed, please try again later.',
-      500
-    );
-    return next(error);
-  }
+  // try {
+  //   existingUser = await Child.findOne({ name: name })
+  // } catch (err) {
+  //   const error = new HttpError(
+  //     'Signing up failed, please try again later.',
+  //     500
+  //   );
+  //   return next(error);
+  // }
 
-  if (existingUser) {
-    const error = new HttpError(
-      'Kide exists already, please login instead.',
-      422
-    );
-    return next(error);
-  }
+  // if (existingUser) {
+  //   const error = new HttpError(
+  //     'Kide exists already, please login instead.',
+  //     422
+  //   );
+  //   return next(error);
+  // }
 
   const createdUser = new Child({
     name,
@@ -168,7 +168,7 @@ const signup = async (req, res, next) => {
   try {
     token = jwt.sign(
       { userId: createdUser.id, email: createdUser.email },
-      'supersecret',
+      process.env.JWT_KEY,
       { expiresIn: '1h' }
     );
   } catch (err) {
@@ -256,7 +256,7 @@ const login = async (req, res, next) => {
   try {
     token = jwt.sign(
       { userId: existingUser.id, email: existingUser.email },
-      'supersecret',
+      process.env.JWT_KEY,
       { expiresIn: '1h' }
     );
   } catch (err) {
