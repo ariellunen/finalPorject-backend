@@ -74,10 +74,7 @@ const getDrawingByUserId = async (req, res, next) => {
 };
 
 const createDraw = async (req, res, next) => {
-  console.log('hiii')
   const errors = validationResult(req);
-  console.log('biiii')
-
   if (!errors.isEmpty()) {
     return next(
       new HttpError('Invalid inputs passed, please check your data.', 422)

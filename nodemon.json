@@ -2,7 +2,7 @@
     "env":{
         "DB_USER":"Ariel",
         "DB_PASSWORD":"ari123456",
-        "DB_NAME": "mern",
+        "DB_NAME": "mern-prod",
         "JWT_KEY": "supersecret"
     }
 }
